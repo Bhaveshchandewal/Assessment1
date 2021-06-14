@@ -1,11 +1,13 @@
-pipeline {
+pipeline
+{
     agent any
      tools {
-        jdk 'JDK1.8'
-	maven 'Maven 3.6.3'
+        jdk  'JDK11'
     }
-    stages {
-       stage('build') {
+	
+	stages 
+	{
+        stage('build') {
             steps {
                 echo 'Building the source'
                 sh 'mvn clean compile'
@@ -17,5 +19,13 @@ pipeline {
                 sh 'mvn test'
             }
         }
-    }
+		stage('Package') 
+		{
+            steps { 
+		echo 'Packaging'
+		sh 'mvn package'
+                  }
+        }
+  
+	}
 }
