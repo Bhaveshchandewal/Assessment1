@@ -1,17 +1,20 @@
 pipeline {
     agent any
-    tools {
-        jdk 'JDK8'
+     tools {
+        jdk 'JDK1.8'
+	maven 'Maven 3.6.3'
     }
     stages {
-        stage('build') {
+       stage('build') {
             steps {
-                echo 'Build started'
-                bat 'mvn --version'
-                bat 'mvn clean compile'
-                echo 'Build Compiled Succesfully'
-                bat 'mvn test'
-                echo 'Build Finished Succesfully'
+                echo 'Building the source'
+                sh 'mvn clean compile'
+            }
+        }
+        stage('test') {
+            steps {
+                echo 'Testing source'
+                sh 'mvn test'
             }
         }
     }
